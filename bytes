@@ -1,0 +1,135 @@
+#!/usr/bin/perl -w
+#
+# bytes.sh
+# Pretty print the size of files
+#
+# Copyright (c) 2002-2009 Operational Dynamics Consulting, Pty Ltd 
+# 
+# The code in this file, and any program it is a part of, is made available
+# to you by its authors under the terms of the "GNU General Public Licence,
+# version 2". See the LICENCE file for the terms governing usage and
+# redistribution.
+#
+
+use strict;
+#
+#	bytes
+#
+# Sums the bytes column of the `ls -l` command of the command line arguments.
+# Note that without arguments it will give the byte count of the directory.
+#
+# Sample `ls -l` line is as follows:
+# drwxr-xr-x   2 andrew   shadnet      1024 Apr 21 19:15 CVS
+
+
+if ($#ARGV == -1) {
+	print "usage: bytes files...\n";
+	exit 1;
+}
+
+my $sum = 0;
+my $file_count = 0;
+
+foreach my $arg (@ARGV) {
+#	my @dir = `ls -ld $arg`;
+#	foreach my $file (@dir) {
+	
+#		chomp $file;
+#		$file =~ s/\s\s+/ /g;
+#		my @fields = split(/ /, $file);
+#		foreach my $field (@fields) {
+#			print "$field\n";
+#		}
+
+	if ( -d $arg ) {
+		next;
+	}
+	if ( ! -e $arg ) {
+		print STDERR "No such file or directory $arg\n";
+		next;
+	}
+	my $size = -s $arg;
+	display($size, $arg);
+	$sum += $size;
+	$file_count++;
+}
+
+
+#
+# If there was more than one argument, then we will print a line with the
+# total number of bytes in the files listed.
+#
+
+if ($file_count) {
+	print "---------------    --------     ----\n";
+	display($sum, "TOTAL");
+}
+
+exit 0;
+
+#
+# display(size,name)
+#
+# This routine does the work of displaying the 
+# file size first with comma seperators, and then, if the size is > 1kB
+# abreviating the size in muliples of 1024 B. 
+#
+
+sub display {
+	my $bytes = $_[0];
+	my $binary = $_[0];
+	my $filename = $_[1];
+
+	my @number = ( );
+	my $number_padding = 4;
+	
+	# note that the first suffix is never displayed; rather
+	# it is just a placeholder so that the index number lines up 
+	# with the right size abbreviation
+
+	my @binary_suffix = ( "", "kB", "MB", "GB" );
+	my $binary_index = 0;
+
+	if ($bytes == 0) {
+		@number = ( 0 );
+		$number_padding--;
+	} else {
+		while ($bytes) {
+			@number = ( $bytes % 1000, @number );
+			$bytes = int($bytes / 1000);
+			$number_padding--;
+		}
+	}
+
+	# print leading spaces for Gig, Meg, and Kilo
+	# if the number isn't that large
+	
+	for (my $i = 0; $i < $number_padding; $i++) {
+		print "    ";
+	}
+	
+	printf "%3d", $number[0];
+	shift @number;
+	
+	foreach my $thousand ( @number ) {
+		printf ",%03d", $thousand;
+	}
+
+	# Now reduce the number for it's abbreviated form.
+	# Note that the divsor is 1000 not 1k binary because 
+	# otherwise you can get 1012 kB instead of 1.0 MB
+	# screwing up the formatting
+	
+	while ($binary > 999 ) {
+		$binary = $binary / 1024;
+		$binary_index++;
+	}
+
+	if ($binary_index > 0) {
+		printf "\t   %5.1f %s", $binary, $binary_suffix[$binary_index];
+	} else {
+		print "            ";
+	}
+	print "\t$filename\n";
+}
+	
