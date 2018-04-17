@@ -1,0 +1,10 @@
+#!/bin/bash -e
+
+#
+# This could be a shell alias but we need it to work when other commands 
+# attempt to invoke docker; this is in preference to creating a docker
+# group.
+#
+
+exec sudo /usr/bin/docker "$@"
+
