@@ -1,0 +1,2 @@
+#!/bin/sh
+exec ps -o user,pid,pcpu,pmem,rsz:8,vsz:8,etime:12,bsdtime,nlwp:2=NT,ucmd --sort='cputime' "$@"
