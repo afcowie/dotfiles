@@ -1,0 +1,136 @@
+{
+    "telemetry.enableTelemetry": false,
+    "window.menuBarVisibility": "default",
+    "terminal.integrated.shell.linux": "bash",
+    "terminal.integrated.shellArgs.linux": [
+        "-l"
+    ],
+    "editor.occurrencesHighlight": false,
+    "editor.renderLineHighlight": "none",
+    // "editor.fontFamily": "'DejaVu Sans Mono'",
+    "editor.fontFamily": "'Inconsolata'",
+    "editor.folding": false,
+    "editor.renderIndentGuides": false,
+    "editor.selectionHighlight": false,
+    "scm.diffDecorationsGutterWidth": 1,
+    "workbench.statusBar.visible": true,
+    "terminal.external.linuxExec": "gnome-terminal --profile=Black",
+    "terminal.integrated.fontSize": 12,
+    "workbench.statusBar.feedback.visible": false,
+    "workbench.activityBar.visible": false,
+    "scm.diffDecorations": "none",
+    "workbench.colorCustomizations": {
+        "[Solarized Light]": {
+            "editorGutter.background": "#eee8d5",
+            "terminal.background": "#232729",
+            "terminal.foreground": "#eeeeec"
+        }
+    },
+    "editor.tokenColorCustomizations": {
+        "[Solarized Light]": {
+        "textMateRules": [
+            {
+                "scope": "comment.block.haskell",
+                "settings": {
+                    "foreground": "#93a1a1",
+                    "fontStyle": ""
+                }
+            },
+            {
+                "scope": "comment.line.double-dash.haskell",
+                "settings": {
+                    "foreground": "#93a1a1",
+                    "fontStyle": "",
+                }
+            },
+            {
+                "scope": "comment.block.documentation.haskell",
+                "settings": {
+                    "foreground": "#cb4b16",
+                    "fontStyle": ""
+                }
+            },
+            {
+                "scope": "support.other.module.haskell",
+                "settings": {
+                    "foreground": "#2aa198",
+                }
+            },
+            {
+                "scope": ["meta.preprocessor.haskell", "keyword.other.preprocessor.haskell"],
+                "settings": {
+                    "foreground": "#6c71c4",
+                }
+            },
+            {
+                "scope": ["keyword.operator.haskell", "keyword.other.arrow.haskell"],
+                "settings": {
+                    "foreground": "#2aa198",
+                }
+            },
+            {
+                "scope": ["keyword.other.haskell"],
+                "settings": {
+                    "foreground": "#859900",
+                }
+            },
+            {
+                "scope": "storage.type.haskell",
+                "settings": {
+                    "foreground": "#b58900",
+                    "fontStyle": ""
+                }
+            },
+            {
+                "scope": ["constant.other.haskell", "source.haskell"],
+                "settings": {
+                    "foreground": "#586e75"
+                }
+            }, 
+            {
+                "scope": "string.quoted.double.haskell",
+                "settings": {
+                    "foreground": "#073642",
+                    "fontStyle": "bold"
+                }
+            },
+            {
+                "scope": "markup.underline.link.markdown",
+                "settings": {
+                    "foreground": "#115c99",
+                    "fontStyle": ""
+                }
+            }
+        ]
+        },
+        "[Solarized Dark]": {
+        "textMateRules": [
+            {
+                "scope": "keyword.other.haskell",
+                "settings": {
+                    "foreground": "#ff0000",
+                }
+            },
+        ]
+        },
+    },
+// "editor.hover.delay": 500,
+"editor.quickSuggestionsDelay": 5000,
+"editor.autoIndent": false,
+"editor.autoClosingBrackets": "never",
+"haskell.indentationRules.enabled": false,
+"workbench.colorTheme": "Solarized Light",
+"explorer.confirmDelete": false,
+"workbench.sideBar.location": "left",
+"languageServerHaskell.hlintOn": false,
+"hoogle-vscode.url": "http://127.0.0.1:8080/",
+"editor.lightbulb.enabled": false,
+"rewrap.wrappingColumn": 75,
+"ghcSimple.workspaceType": "stack",
+"editor.detectIndentation": false,
+"editor.suggestOnTriggerCharacters": false,
+"window.titleBarStyle": "custom",
+"workbench.editor.enablePreview": false,
+"editor.fontSize": 15,
+"editor.lineHeight": 18,
+}
