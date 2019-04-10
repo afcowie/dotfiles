@@ -1,0 +1,41 @@
+#!/bin/sh
+
+#
+# In some corporate environments the HTTP proxy you have to work behind
+# returns 404 when it is in the process of downloading from upstream. This
+# is unexpected, and so you have to retry dnf in a loop to actually get
+# packages downloaded.
+#
+
+DELAY=10
+
+case "$1" in
+"upgrade"|"update")
+	RUN=1
+	while [ $RUN -ne 0 ] ; do
+		dnf upgrade --downloadonly -y
+		RUN=$?
+		sleep $DELAY
+	done
+	dnf upgrade -y
+	;;
+
+"install")
+	RUN=1
+	while [ $RUN -ne 0 ] ; do
+		dnf install $2
+		RUN=$?
+		sleep $DELAY
+	done
+	;;
+
+"dist-upgrade")
+	RUN=1
+	while [ $RUN -ne 0 ] ; do
+		dnf system-upgrade download --releasever=28 -y
+		RUN=$?
+		sleep $DELAY
+	done
+	;;
+esac
+
