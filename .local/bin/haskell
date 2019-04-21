@@ -6,33 +6,35 @@ shift
 case "$MODE" in
 "build")
 	set -x
-	stack build --only-dependencies
+	stack build --only-dependencies --test --no-run-tests
 	ghcid \
 		--no-title \
-		--command="stack exec -- ghci -fno-code -ilib:src:tests -Wall ${1}" \
+		--command="stack exec -- ghci -fno-code -Wall ${1}" \
 ;;
 
 "run")
-	set -x
-	stack build --only-dependencies
+	stack build --only-dependencies --test --no-run-tests
 	ghcid \
 		--no-title \
-		--command="stack exec -- ghci -ilib:src:tests ${1}" \
+		--command="stack exec -- ghci -fno-break-on-exception -fno-break-on-error -v1 -w -ferror-spans -j ${1}" \
 		--test=":main ${*:2}"
 ;;
 
 "test")
-	set -x
+	MODULE="${1}"
+	shift
+	ARGUMENTS="${@}"
 	stack build --only-dependencies
 	ghcid \
 		--no-title \
-		--command="stack exec --test -- ghci -ilib:src:tests ${1}" \
-		--test=":main --color ${*:2}"
+		--test=":main ${ARGUMENTS}" \
+		${MODULE}
 ;;
 
 "explore")
 	set -x
-	stack build --only-dependencies
+	LIB=`stack ide targets 2>&1 | head -1`
+	stack build $LIB
 	stack exec -- ghci -ilib:src:tests "${1}"
 ;;
 
