@@ -9,15 +9,20 @@ case "$MODE" in
 	stack build --only-dependencies --test --no-run-tests
 	ghcid \
 		--no-title \
-		--command="stack exec -- ghci -fno-code -Wall ${1}" \
+		--command="stack exec -- ghci -fno-code -fdiagnostics-color=always -Wall ${1}" \
 ;;
 
 "run")
 	stack build --only-dependencies --test --no-run-tests
 	ghcid \
 		--no-title \
-		--command="stack exec -- ghci -fno-break-on-exception -fno-break-on-error -v1 -w -ferror-spans -j ${1}" \
+		--command="stack exec -- ghci -fno-break-on-exception -fno-break-on-error -v1 -w -ferror-spans -fdiagnostics-color=always -j ${1}" \
 		--test=":main ${*:2}"
+;;
+
+"once")
+	stack build --only-dependencies --test --no-run-tests
+	stack runghc -- ${1} "${*:2}"
 ;;
 
 "test")
