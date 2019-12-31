@@ -1,0 +1,19 @@
+[user]
+	name = Andrew Cowie
+	email = andrew@operationaldynamics.com
+	signingkey = 5CB48AEA
+[color]
+	ui = true
+[core]
+	excludesfile = /home/andrew/.gitignore
+[alias]
+	root = !pwd
+	serving = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
+[color "status"]
+	changed = blue
+[color "diff"]
+	func = black
+	frag = yellow
+	meta = blue
+[push]
+	default = simple
