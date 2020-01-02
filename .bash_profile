@@ -60,7 +60,7 @@ shopt -sq histappend cmdhist lithist
 
 export LESS="-j12 -R"
 
-export PATH="/home/andrew/.local/bin:/opt/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin"
+export PATH="/home/andrew/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin"
 
 export EDITOR=vim
 alias dnf='echo "not for you, dnf"'
