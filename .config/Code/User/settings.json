@@ -20,6 +20,7 @@
     "workbench.activityBar.visible": false,
     "scm.diffDecorations": "none",
     "workbench.colorCustomizations": {
+        "editorWarning.foreground": "#58b878",
         "[Solarized Light]": {
             "editorGutter.background": "#eee8d5",
             "terminal.background": "#232729",
@@ -119,7 +120,6 @@
 "editor.autoIndent": false,
 "editor.autoClosingBrackets": "never",
 "haskell.indentationRules.enabled": false,
-"workbench.colorTheme": "Solarized Light",
 "explorer.confirmDelete": false,
 "workbench.sideBar.location": "left",
 "languageServerHaskell.hlintOn": false,
@@ -133,4 +133,15 @@
 "workbench.editor.enablePreview": false,
 "editor.fontSize": 15,
 "editor.lineHeight": 18,
+"window.zoomLevel": 0,
+"files.watcherExclude": {
+    "**/.stack-work/**": true
+},
+"files.associations": {
+    "*.t": "plain"
+},
+"update.mode": "manual",
+"window.newWindowDimensions": "maximized",
+"editor.minimap.enabled": false,
+"workbench.colorTheme": "Solarized Light"
 }
