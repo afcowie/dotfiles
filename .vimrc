@@ -27,24 +27,36 @@ set wildmode=longest,list
 
 " The semi-colon is magic, means search up, which is necessaryif autochdir is
 " turned on.
+"set autochdir
 set tags=./tags;,./codex.tags;
 
 set nowrap
 
-" sort out <Tab> key handling
-
-set tabstop=4
-set shiftwidth=4
-set expandtab
-set autoindent
-set smartindent
-set nocindent
-set softtabstop=4
-
 " for use while editing Haskell files
 if expand("%:e") == "hs"
+    set tabstop=4
+    set shiftwidth=4
+    set expandtab
+    set autoindent
+    set smartindent
+    set nocindent
+    set softtabstop=4
+
     " Per http://hackage.haskell.org/package/hothasktags
     set iskeyword=a-z,A-Z,_,.,39
+
+    set textwidth=75
+endif
+
+" for use while editing C files
+if expand("%:e") == "c"
+    set tabstop=4
+    set shiftwidth=4
+    set expandtab
+    set autoindent
+    set smartindent
+    set nocindent
+    set softtabstop=4
 endif
 
 " for use while editing text files
@@ -59,7 +71,7 @@ if expand("%:t") == "COMMIT_EDITMSG"
 	syn match commitComment "^#.*"
 	hi link commitComment Comment
 	set noautochdir
-	go
+	go 1
 endif
 
 if expand("%:t") =~ "msg"
@@ -77,21 +89,23 @@ if has("gui_running")
 	set columns=90 lines=36 
 	set number
 
+" always show status line
+"	set laststatus=2
 endif
 
-"set guifont=DejaVu\ Sans\ Mono\ 13
 "set guifont=Inconsolata\ Medium\ 12
-set guifont=Inconsolata\ Medium\ 10
+"set guifont=Inconsolata\ Medium\ 10
+"set guifont=Inconsolata\ Medium\ 11
+set guifont=DejaVu\ Sans\ Mono\ 10
 set guicursor=a:block-blinkon0,i:ver10-blinkon0
 set mouseshape=n:beam,ve:beam,sd:updown
-
 " disable tearoff menus,toolbar
 set guioptions-=tT
 set guioptions-=m
 set guioptions-=r
 
 
-"source $VIMRUNTIME/mswin.vim
+source $VIMRUNTIME/mswin.vim
 
 highlight hsDelimiter guifg=#2aa198
 highlight hsImportLabel gui=NONE guifg=#859900
@@ -113,7 +127,7 @@ highlight hsConditional gui=NONE guifg=#859900
 highlight hsCommentTodo term=bold ctermfg=0 ctermbg=11 gui=bold guifg=#d33682 guibg=yellow
 
 highlight OverLength ctermbg=red ctermfg=white guifg=green guibg=#592929
-match OverLength /\%>80v.\+/
+"match OverLength /\%>80v.\+/
 
 func! ToggleNumbering()
 	if &number
@@ -159,12 +173,20 @@ endif
 vmap < <gv
 vmap > >gv
  
+let g:gitgutter_sign_column_always = 1
+"highlight SignColumn ctermfg=Grey guibg=#e5e5e5
+"highlight SignColumn ctermbg=Black guibg=#ffffff
+highlight SignColumn ctermbg=Black guibg=grey95
+au FileType haskell map ff :%!stylish-haskell<CR> 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.o,*.lo,*/dist/*,*.a
  
 " dodge file reload warnings; do so automatically. Danger?
 set autoread
 
+"set runtimepath^=~/.vim/bundle/ctrlp.vim
+
 let g:GPGExecutable='/usr/bin/gpg2'
 
 set ignorecase
 set smartcase
+set hidden
