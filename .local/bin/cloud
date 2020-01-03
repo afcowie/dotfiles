@@ -1,0 +1,46 @@
+#!/bin/bash
+
+#
+# cloud.sh
+# Duplicate [a fair bit of] my user files to an offsite disk
+#
+# Copyright (c) 2002-2019 Operational Dynamics Consulting, Pty Ltd 
+# 
+# The code in this file, and any program it is a part of, is made available
+# to you by its authors under the terms of the "GNU General Public Licence,
+# version 2". See the LICENCE file for the terms governing usage and
+# redistribution.
+#
+
+export GOOGLE_PROJECT_ID=XXXXXXXXXXXX
+export GOOGLE_APPLICATION_CREDENTIALS=/home/andrew/.config/XXXXXXXX.json
+
+#
+# Execute
+#
+
+ionice -c 3 nice -n 16 \
+restic backup \
+	--repo gs:oprdyn-archive-laptops:/ \
+	--exclude '/home/andrew/**/*.o' \
+	--exclude '/home/andrew/**/*.a' \
+	--exclude '/home/andrew/**/*.la' \
+	--exclude '/home/andrew/**/*.mo' \
+	--exclude '**/*~' \
+	--exclude '**/*.tar.xz' \
+	--exclude '**/*.part' \
+	--exclude '**/*.tar.bz2' \
+	--exclude '**/*.tar.gz' \
+	--exclude '**/.~lock*#' \
+	--exclude '/home/andrew/**/.*.swp' \
+	--exclude '**/*.cache' \
+	--exclude '**/Cache/**' \
+	--exclude '/home/andrew/**/.*.swp' \
+	--exclude '/home/andrew/**/.stack-work' \
+	--exclude '/home/andrew/src/containers/docker.haskell/files/root/.stack' \
+	/home/andrew/Archive \
+	/home/andrew/Documents \
+	/home/andrew/src \
+	/home/andrew/vcs
+
+exit 0
