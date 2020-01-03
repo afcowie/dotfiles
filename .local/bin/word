@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ "$2" ] ; then
+	file="/home/andrew/Private/$1.asc"
+	shift
+else 
+	file="/home/andrew/Private/words.asc"
+fi
+
+gpg2 --quiet < "$file" | grep -i "$1" | sed -e 's/,/\t/g'
+
