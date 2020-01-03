@@ -1,0 +1,63 @@
+#!/bin/bash
+
+#
+# backup.sh
+# Duplicate [a fair bit of] my user files to an alternate location
+#
+# Copyright (c) 2002-2020 Operational Dynamics Consulting, Pty Ltd 
+# 
+# The code in this file, and any program it is a part of, is made available
+# to you by its authors under the terms of the "GNU General Public Licence,
+# version 2". See the LICENCE file for the terms governing usage and
+# redistribution.
+#
+
+#
+# Execute
+#
+
+ionice -c 3 nice -n 16 \
+restic backup \
+	--repo sftp:root@cygnus:/srv/vault/Backup/laptops \
+	--exclude '/home/andrew/.gvfs' \
+	--exclude '/home/andrew/.cache' \
+	--exclude '/home/andrew/**/*.o' \
+	--exclude '/home/andrew/**/*.a' \
+	--exclude '/home/andrew/**/*.la' \
+	--exclude '/home/andrew/**/*.mo' \
+	--exclude '**/*~' \
+	--exclude '**/*.tar.xz' \
+	--exclude '**/*.part' \
+	--exclude '**/*.tar.bz2' \
+	--exclude '**/*.tar.gz' \
+	--exclude '**/.~lock*#' \
+	--exclude '/home/andrew/**/.*.swp' \
+	--exclude '**/*.cache' \
+	--exclude '**/Cache/**' \
+	--exclude '/home/andrew/.config/ghb/EncodeLogs' \
+	--exclude '/home/andrew/.local/share/Trash' \
+	--exclude '/home/andrew/.Trash' \
+	--exclude '/home/andrew/tmp' \
+	--exclude '**/sessions' \
+	--exclude '/home/andrew/.gnupg/S.gpg-agent' \
+	--exclude '/home/andrew/.viminfo' \
+	--exclude '/home/andrew/.thumbnails' \
+	--exclude '/home/andrew/.ICEauthority' \
+	--exclude '/home/andrew/.Xauthority' \
+	--exclude '/home/andrew/.purple/icons' \
+	--exclude '/home/andrew/.Skype' \
+	--exclude '/home/andrew/.gnome2/totem-addons' \
+	--exclude '/home/andrew/.metadata' \
+	--exclude '/home/andrew/**/.*.swp' \
+	--exclude '/home/andrew/.shotwell/thumbs' \
+	--exclude '/home/andrew/**/*.part' \
+	--exclude '/home/andrew/.stack/' \
+	--exclude '/home/andrew/**/.stack-work' \
+	--exclude '/home/andrew/.gnupg/pubring.gpg~' \
+	--exclude '/home/andrew/Videos' \
+	--exclude '/home/andrew/Music' \
+	--exclude '/home/andrew/.local/share/Steam' \
+	"$@" \
+	/home/andrew
+
+exit 0
