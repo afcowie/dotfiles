@@ -8,7 +8,7 @@
     "editor.occurrencesHighlight": false,
     "editor.renderLineHighlight": "none",
     // "editor.fontFamily": "'DejaVu Sans Mono'",
-    "editor.fontFamily": "'Inconsolata'",
+    "editor.fontFamily": "Source Code Pro",
     "editor.folding": false,
     "editor.renderIndentGuides": false,
     "editor.selectionHighlight": false,
@@ -83,6 +83,13 @@
                 }
             },
             {
+                "scope": "meta.preprocessor.c",
+                "settings": {
+                    "foreground": "#d33682",
+                    "fontStyle": ""
+                }
+            },
+            {
                 "scope": ["constant.other.haskell", "source.haskell"],
                 "settings": {
                     "foreground": "#586e75"
@@ -117,7 +124,7 @@
     },
 // "editor.hover.delay": 500,
 "editor.quickSuggestionsDelay": 5000,
-"editor.autoIndent": false,
+"editor.autoIndent": "keep",
 "editor.autoClosingBrackets": "never",
 "haskell.indentationRules.enabled": false,
 "explorer.confirmDelete": false,
@@ -131,8 +138,7 @@
 "editor.suggestOnTriggerCharacters": false,
 "window.titleBarStyle": "custom",
 "workbench.editor.enablePreview": false,
-"editor.fontSize": 15,
-"editor.lineHeight": 18,
+"editor.fontSize": 16,
 "window.zoomLevel": 0,
 "files.watcherExclude": {
     "**/.stack-work/**": true
@@ -143,5 +149,8 @@
 "update.mode": "manual",
 "window.newWindowDimensions": "maximized",
 "editor.minimap.enabled": false,
-"workbench.colorTheme": "Solarized Light"
+"workbench.colorTheme": "Solarized Light",
+"editor.hover.delay": 1000,
+"npm.fetchOnlinePackageInfo": false,
+"extensions.ignoreRecommendations": false
 }
