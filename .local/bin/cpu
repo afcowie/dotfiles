@@ -1,0 +1,61 @@
+#!/bin/bash
+
+case "$1" in
+	"power"*)
+		MODE="power"
+		;;
+	
+	"perf"*)
+		MODE="balance_performance"
+		;;
+
+	"full")
+		MODE="performance"
+		;;
+
+	"--help"|"-h"|"-?")
+		echo "Usage:"
+		echo
+		echo "    full"
+		echo "    performance"
+		echo "    powersave"
+		echo
+		exit 1
+		;;
+
+	*)
+		echo -n "Current state: "
+		STATE=`cat /sys/devices/system/cpu/cpufreq/policy0/energy_performance_preference`
+		case "$STATE" in
+		"power") echo "powersave" ;;
+		"balance_performance") echo "performance" ;;
+		"performance") echo "full throttle" ;;
+		esac
+		exit 0
+		;;
+esac
+
+echo "Setting intel_pstate preference to '${MODE}'"
+for i in /sys/devices/system/cpu/cpufreq/policy*/energy_performance_preference
+do
+	echo $MODE > $i
+done
+
+if [ `cat /sys/class/leds/tpacpi::kbd_backlight/brightness` -ne 0 ] ; then
+	echo "Turning keyboard backlight off"
+	echo 0 > /sys/class/leds/tpacpi::kbd_backlight/brightness
+fi
+
+if [ -f /sys/devices/pci0000:00/0000:00:01.0/0000:01:00.1/remove ] ; then
+	echo "Removing audio device from nvidia chip"
+	echo 1 > /sys/devices/pci0000:00/0000:00:01.0/0000:01:00.1/remove
+fi
+
+echo "Optimize settings via powertop"
+powertop --auto-tune --quiet
+
+if [ -f /sys/bus/usb/devices/1-2/power/control ] ; then
+	echo "Restoring full awake to mouse USB reciever"
+	echo 'on' > '/sys/bus/usb/devices/1-2/power/control'
+fi
+
