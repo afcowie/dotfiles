@@ -1,5 +1,15 @@
 #!/bin/bash
 
+#
+# Helper script to tune the power consumption mode of an Intel i9 CPU using
+# the intel_pstate sysfs device (rather than cpufreq's mechanisms).
+#
+# This then runs powertop on auto, and then remove unneded audio devices from
+# the Nvidia chip that this ThinkPad X1 Extreme gen 2 laptop has.
+#
+# Run this as root.
+#
+
 case "$1" in
 	"power"*)
 		MODE="power"
